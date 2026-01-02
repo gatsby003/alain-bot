@@ -40,6 +40,11 @@ def main() -> None:
     if not token:
         raise ValueError("TELEGRAM_BOT_TOKEN environment variable not set")
 
+    webhook_url = os.environ.get("WEBHOOK_URL")
+    # Webhook configuration
+    webhook_port = int(os.environ.get("WEBHOOK_PORT", "8443"))
+    webhook_path = f"/webhook/{token}"  # Use token as secret path
+
     # Build application
     application = (
         Application.builder()
@@ -55,9 +60,16 @@ def main() -> None:
     application.add_handler(northstar_handler)
     application.add_handler(message_handler)
 
-    # Start the bot
-    logger.info("Starting Alain bot...")
-    application.run_polling(allowed_updates=["message"])
+    # Start the bot with webhook
+    logger.info(f"Starting Alain bot with webhook on port {webhook_port}...")
+    logger.info(f"Webhook URL: {webhook_url}{webhook_path}")
+    application.run_webhook(
+        listen="0.0.0.0",
+        port=webhook_port,
+        url_path=webhook_path,
+        webhook_url=f"{webhook_url}{webhook_path}",
+        allowed_updates=["message"],
+    )
 
 
 if __name__ == "__main__":

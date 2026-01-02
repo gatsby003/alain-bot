@@ -12,14 +12,13 @@ from pathlib import Path
 import asyncpg
 from dotenv import load_dotenv
 
-
 MIGRATIONS_DIR = Path(__file__).parent / "migrations"
 
 
 async def get_connection() -> asyncpg.Connection:
     """Get a database connection."""
     load_dotenv()
-    
+
     dsn = os.getenv("DATABASE_URL")
     if not dsn:
         # Build from individual components
