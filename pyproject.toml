@@ -1,0 +1,24 @@
+[project]
+name = "alain"
+version = "0.1.0"
+description = "Alain is an AI agent who helps you learn about life and how to best live it. It helps you keep accountable and crush your goals."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "anthropic>=0.20.0",
+    "python-dotenv>=1.0.0",
+    "python-telegram-bot>=21.0",
+    "asyncpg>=0.29.0",
+    "supabase>=2.0.0",
+]
+
+[project.scripts]
+alain = "bot.main:main"
+alain-migrate = "db.migrate:main"
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["bot*", "db*", "ai_client*", "prompts*", "services*"]
