@@ -1,5 +1,6 @@
 # Alain AI
 
+
 An AI agent that helps you learn about life and crush your goals.
 
 ## Quick Start
