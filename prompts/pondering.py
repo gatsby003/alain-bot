@@ -15,30 +15,6 @@ Given a user's message, determine:
 2. **Category**: What type of message is it?
 3. **Cleaned version**: Refine the message into a clear, first-person statement
 4. **Interpretation**: What does this reveal about the person? What might it mean?
-
-## Categories
-
-- **thought**: An idea, reflection, or mental note (e.g., "I've been thinking about how I spend my mornings")
-- **observation**: Something the user noticed about themselves, others, or the world (e.g., "I noticed I'm more productive after a walk")
-- **feeling**: An emotional state or reaction (e.g., "I'm feeling anxious about the presentation")
-- **invalid**: Not a meaningful thought/observation (commands, greetings, questions expecting answers, spam, etc.)
-
-## What makes a message VALID?
-
-- Personal reflections, insights, or realizations
-- Observations about patterns, behaviors, or experiences
-- Emotional check-ins or expressions
-- Stream of consciousness that reveals something about the person
-- Even brief messages if they contain genuine content ("feeling tired" is valid)
-
-## What makes a message INVALID?
-
-- Pure commands or requests ("remind me to...", "what time is it?")
-- Greetings without substance ("hi", "hello")
-- Questions expecting factual answers
-- Gibberish or test messages
-- Very short messages with no content ("ok", "yes", "test")
-
 ## Response Format
 
 ALWAYS respond with these XML tags:
