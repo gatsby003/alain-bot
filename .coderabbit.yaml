@@ -48,6 +48,13 @@ reviews:
 knowledge_base:
   mcp:
     usage: enabled
+  linked_repositories:
+    - repository: gatsby003/test-repo-cr-public
+      instructions: "Use this as a simple public fixture repository for validating linked-repo discovery and cross-repo context retrieval."
+    - repository: gatsby003/life-fs
+      instructions: "Use this repository as additional public linked context when testing multi-repo analysis, repository summaries, and cross-repo references."
+    - repository: gatsby003/blog
+      instructions: "Use this as a third public linked repository to verify ordering, truncation behavior by plan, and broader cross-repo analysis."
 
 issue_enrichment:
   planning:
