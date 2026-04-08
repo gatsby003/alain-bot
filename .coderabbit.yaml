@@ -16,6 +16,20 @@ reviews:
         instructions: |
           Remove unused imports and obvious dead code when it is safe to do so.
           Do not change behavior, public interfaces, or runtime semantics.
+      - name: "tighten python typing"
+        enabled: true
+        instructions: |
+          Review the changed Python files and improve type precision where it is
+          obviously safe to do so. Prefer adding or tightening return annotations,
+          local variable annotations, and Optional or union handling without
+          changing runtime behavior or public API contracts.
+      - name: "polish logging calls"
+        enabled: true
+        instructions: |
+          Review logging statements in the changed Python files and improve them
+          when it is safe to do so. Prefer structured, lazy logging patterns,
+          clearer context fields, and consistent exception logging without
+          changing application behavior.
   pre_merge_checks:
     title:
       mode: warning
