@@ -59,8 +59,9 @@ class PonderingService:
         # 3. Parse response
         result = PonderingResult.parse(response.content)
         logger.info(
-            f"Pondering classified: valid={result.is_valid}, "
-            f"category={result.category}"
+            "Pondering classification completed (valid=%s, category=%s)",
+            result.is_valid,
+            result.category,
         )
 
         # 4. Map category string to enum
@@ -82,4 +83,3 @@ class PonderingService:
             f"has_interpretation={result.interpretation is not None}"
         )
         return pondering
-
