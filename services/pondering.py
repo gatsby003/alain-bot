@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 # Model configuration
 PONDERING_MODEL = "claude-sonnet-4-20250514"
-MAX_TOKENS = 768  # Increased for interpretation
+MAX_TOKENS = 640  # Reduced for faster classification test iterations
 
 
 class PonderingService:
