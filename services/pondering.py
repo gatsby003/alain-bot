@@ -29,6 +29,15 @@ class PonderingService:
             for msg in prompt_messages
         ]
 
+    def _format_classification_log_message(
+        self,
+        result: PonderingResult,
+    ) -> str:
+        return (
+            f"Pondering classified: valid={result.is_valid}, "
+            f"category={result.category}"
+        )
+
     async def process_message(
         self,
         user_id: UUID,
@@ -62,10 +71,7 @@ class PonderingService:
 
         # 3. Parse response
         result = PonderingResult.parse(response.content)
-        logger.info(
-            f"Pondering classified: valid={result.is_valid}, "
-            f"category={result.category}"
-        )
+        logger.info(self._format_classification_log_message(result))
 
         # 4. Map category string to enum
         category = PonderingCategory(result.category)
