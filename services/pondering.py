@@ -21,6 +21,14 @@ class PonderingService:
     def __init__(self):
         self.ai_client = create_ai_client("anthropic")
 
+    def _build_ai_messages(self, message_text: str) -> list[AIMessage]:
+        """Build the AI client message payload for a pondering request."""
+        prompt_messages = create_pondering_messages(message_text)
+        return [
+            AIMessage(role=msg.role, content=msg.content)
+            for msg in prompt_messages
+        ]
+
     async def process_message(
         self,
         user_id: UUID,
@@ -38,11 +46,7 @@ class PonderingService:
             The created Pondering if valid, None if classification failed
         """
         # 1. Create classification prompt
-        prompt_messages = create_pondering_messages(message_text)
-        ai_messages = [
-            AIMessage(role=msg.role, content=msg.content)
-            for msg in prompt_messages
-        ]
+        ai_messages = self._build_ai_messages(message_text)
 
         # 2. Call LLM for classification
         logger.info(f"Classifying pondering (user={user_id})")
@@ -82,4 +86,3 @@ class PonderingService:
             f"has_interpretation={result.interpretation is not None}"
         )
         return pondering
-
