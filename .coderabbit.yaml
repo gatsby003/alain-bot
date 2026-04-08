@@ -1,6 +1,10 @@
+# yaml-language-server: $schema=https://storage.googleapis.com/coderabbit_public_assets/schema.v2.json
 early_access: true
 
 reviews:
+  review_details: true
+  high_level_summary: true
+  review_status: true
   finishing_touches:
     docstrings:
       enabled: true
@@ -9,8 +13,9 @@ reviews:
     custom:
       - name: "cleanup stale imports"
         enabled: true
-        instructions: "Remove dead imports and obvious dead code without changing behavior."
-
+        instructions: |
+          Remove unused imports and obvious dead code when it is safe to do so.
+          Do not change behavior, public interfaces, or runtime semantics.
   pre_merge_checks:
     title:
       mode: warning
@@ -21,14 +26,14 @@ reviews:
     custom_checks:
       - name: "Security Scan"
         mode: warning
-        instructions: "Check for obvious security issues and unsafe patterns."
+        instructions: |
+          Check for obvious security issues and unsafe patterns in the changed code.
+          Flag hardcoded secrets, unsafe deserialization, command injection,
+          path traversal, SSRF, SQL injection, and auth or permission gaps when applicable.
 
 knowledge_base:
   mcp:
     usage: enabled
-  linked_repositories:
-    - repository: your-org/related-repo
-      instructions: "This repo contains shared types used by the PR repo."
 
 issue_enrichment:
   planning:
