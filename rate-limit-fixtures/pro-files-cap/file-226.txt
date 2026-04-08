@@ -1,0 +1,2 @@
+fixture 226
+This file exists only for CodeRabbit rate-limit testing.
