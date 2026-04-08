@@ -34,7 +34,7 @@ class PonderingService:
         result: PonderingResult,
     ) -> str:
         return (
-            f"Pondering classified: valid={result.is_valid}, "
+            f"Pondering classification result: valid={result.is_valid}, "
             f"category={result.category}"
         )
 
