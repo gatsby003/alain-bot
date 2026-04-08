@@ -1,0 +1,35 @@
+early_access: true
+
+reviews:
+  finishing_touches:
+    docstrings:
+      enabled: true
+    unit_tests:
+      enabled: true
+    custom:
+      - name: "cleanup stale imports"
+        enabled: true
+        instructions: "Remove dead imports and obvious dead code without changing behavior."
+
+  pre_merge_checks:
+    title:
+      mode: warning
+    description:
+      mode: warning
+    issue_assessment:
+      mode: warning
+    custom_checks:
+      - name: "Security Scan"
+        mode: warning
+        instructions: "Check for obvious security issues and unsafe patterns."
+
+knowledge_base:
+  mcp:
+    usage: enabled
+  linked_repositories:
+    - repository: your-org/related-repo
+      instructions: "This repo contains shared types used by the PR repo."
+
+issue_enrichment:
+  planning:
+    enabled: true
