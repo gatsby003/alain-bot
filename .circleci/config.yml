@@ -1,0 +1,30 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: cimg/python:3.13
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-pip-{{ checksum "pyproject.toml" }}
+            - v1-pip-
+      - run:
+          name: Install dependencies
+          command: |
+            python -m pip install --upgrade pip
+            pip install -e .
+      - save_cache:
+          key: v1-pip-{{ checksum "pyproject.toml" }}
+          paths:
+            - ~/.cache/pip
+      - run:
+          name: Validate Python sources
+          command: |
+            python -m compileall ai_client bot db prompts services
+
+workflows:
+  ci:
+    jobs:
+      - build
