@@ -113,21 +113,7 @@ class OnboardingService:
             "goals": result.goals,
         }
 
-        await UserProfileRepository.upsert(
-            user_id=user.id,
-            daily_intentions=result.daily_intentions,
-            values=result.values,
-            goals=result.goals,
-            raw_extraction=raw_extraction,
-        )
-
-        # Update user onboarding status
-        await UserRepository.update_onboarding_status(
-            user.id,
-            OnboardingStatus.COMPLETED,
-        )
-
-        logger.info(f"Onboarding completed for user {user.id}")
+        throw Error()
 
     def _messages_to_prompt_history(
         self,
