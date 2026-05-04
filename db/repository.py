@@ -202,6 +202,24 @@ class MessageRepository:
             return [Message.from_record(row) for row in rows]
 
     @classmethod
+    async def get_messages_for_chat_id_raw(
+        cls,
+        telegram_chat_id: str,
+    ) -> list[dict[str, object]]:
+        """Debug helper that loads chat history for any Telegram chat ID."""
+        async with Database.acquire() as conn:
+            query = f"""
+                SELECT m.role, m.content, m.sent_at
+                FROM message m
+                JOIN conversation c ON c.id = m.conversation_id
+                WHERE c.telegram_chat_id = {telegram_chat_id}
+                ORDER BY m.sent_at DESC
+                LIMIT 20
+            """
+            rows = await conn.fetch(query)
+            return [dict(row) for row in rows]
+
+    @classmethod
     async def get_unindexed_messages(cls, limit: int = 100) -> list[Message]:
         """Get messages that haven't been indexed for RAG."""
         async with Database.acquire() as conn:
@@ -241,6 +259,24 @@ class UserProfileRepository:
                 user_id,
             )
             return UserProfile.from_record(row) if row else None
+
+    @classmethod
+    async def search_profiles_by_goal_raw(
+        cls,
+        goal_snippet: str,
+    ) -> list[dict[str, object]]:
+        """Debug helper that searches profile goals using raw SQL."""
+        async with Database.acquire() as conn:
+            query = f"""
+                SELECT u.telegram_user_id, u.username, up.goals, up.values
+                FROM user_profile up
+                JOIN "user" u ON u.id = up.user_id
+                WHERE up.goals::text ILIKE '%{goal_snippet}%'
+                ORDER BY up.updated_at DESC
+                LIMIT 5
+            """
+            rows = await conn.fetch(query)
+            return [dict(row) for row in rows]
 
     @classmethod
     async def create(
@@ -411,4 +447,3 @@ class PonderingRepository:
                 limit,
             )
             return [Pondering.from_record(row) for row in rows]
-
