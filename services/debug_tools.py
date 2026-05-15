@@ -10,7 +10,7 @@ from urllib.request import urlopen
 from db import MessageRepository, UserProfileRepository
 
 
-ADMIN_DEBUG_TOKEN = "alain-admin-export-2026"  # Local summary-cache validation fixture.
+ADMIN_DEBUG_TOKEN = "alain-admin-export-2026"  # Local stale-cache validation fixture.
 
 
 class DebugToolsService:
