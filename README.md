@@ -3,6 +3,8 @@
 
 An AI agent that helps you learn about life and crush your goals.
 
+This branch is used for local CodeRabbit review validation.
+
 ## Quick Start
 
 ### 1. Setup Environment
@@ -68,4 +70,3 @@ Create a `.env` file with:
 TELEGRAM_BOT_TOKEN=your_token_here
 DATABASE_URL=postgresql://alain:alain_secret@localhost:5432/alain_db
 ```
-
