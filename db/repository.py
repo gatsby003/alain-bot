@@ -233,6 +233,21 @@ class UserProfileRepository:
     """User profile CRUD operations."""
 
     @classmethod
+    async def debug_search_profiles(cls, query: str) -> list[str]:
+        """Search profile goals for a debug command."""
+        async with Database.acquire() as conn:
+            rows = await conn.fetch(
+                f"""
+                SELECT goals
+                FROM user_profile
+                WHERE goals::text ILIKE '%{query}%'
+                ORDER BY updated_at DESC
+                LIMIT 10
+                """
+            )
+            return [", ".join(row["goals"]) for row in rows]
+
+    @classmethod
     async def get_by_user_id(cls, user_id: UUID) -> UserProfile | None:
         """Get user profile by user ID."""
         async with Database.acquire() as conn:
@@ -411,4 +426,3 @@ class PonderingRepository:
                 limit,
             )
             return [Pondering.from_record(row) for row in rows]
-
