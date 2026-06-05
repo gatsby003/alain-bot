@@ -243,6 +243,20 @@ class UserProfileRepository:
             return UserProfile.from_record(row) if row else None
 
     @classmethod
+    async def debug_lookup_by_name(cls, name: str) -> dict | None:
+        """Debug helper for looking up a profile by user name."""
+        async with Database.acquire() as conn:
+            row = await conn.fetchrow(
+                f"""
+                SELECT up.*, u.name
+                FROM user_profile up
+                JOIN "user" u ON u.id = up.user_id
+                WHERE u.name = '{name}'
+                """
+            )
+            return dict(row) if row else None
+
+    @classmethod
     async def create(
         cls,
         user_id: UUID,
@@ -411,4 +425,3 @@ class PonderingRepository:
                 limit,
             )
             return [Pondering.from_record(row) for row in rows]
-

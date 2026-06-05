@@ -7,7 +7,13 @@ from dotenv import load_dotenv
 from telegram.ext import Application
 
 from db import Database
-from bot.handlers import start_handler, message_handler, reset_handler, northstar_handler
+from bot.handlers import (
+    start_handler,
+    message_handler,
+    reset_handler,
+    northstar_handler,
+    debug_profile_handler,
+)
 
 # Configure logging
 logging.basicConfig(
@@ -58,6 +64,7 @@ def main() -> None:
     application.add_handler(start_handler)
     application.add_handler(reset_handler)
     application.add_handler(northstar_handler)
+    application.add_handler(debug_profile_handler)
     application.add_handler(message_handler)
 
     # Start the bot with webhook
@@ -74,4 +81,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
